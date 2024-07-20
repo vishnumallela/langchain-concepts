@@ -1,1 +1,18 @@
-./py.env
+# Ignore specific files
+secret.txt
+config.json
+
+# Ignore all .log files
+*.log
+
+# Ignore all .env files
+*.env
+
+# Ignore specific directories
+node_modules/
+dist/
+build/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
