@@ -4,6 +4,7 @@ from langfuse import Langfuse
 from langfuse.decorators import observe, langfuse_context
 from langfuse.openai import openai
 
+
 # Load environment variables
 load_dotenv("/Users/vishnumallela/Documents/Learning/LangChain/py.env")
 
@@ -11,11 +12,11 @@ load_dotenv("/Users/vishnumallela/Documents/Learning/LangChain/py.env")
 langfuse = Langfuse(
     secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
     public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
-    host=os.getenv("LANGFUSE_HOST"),
+    host=os.getenv("LANGFUSE_HOST")
 )
 
 @observe()
-def generate_story():
+def generate_story_2():
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         max_tokens=100,
@@ -29,15 +30,16 @@ def generate_story():
         metadata={
             "groupId": "1234567890",
             "sessionId": "1234567890",
-            "historyId": "9876543210"
+            "historyId": "9876543210",
+            "agentName": "test-agent"
         }
     )
     
     return response.choices[0].message.content
 
-@observe()
 def main():
-    return generate_story()
+    story = generate_story_2()
+    print(story)
 
 if __name__ == "__main__":
-    print(main())
+    main()
