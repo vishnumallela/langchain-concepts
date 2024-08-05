@@ -11,7 +11,7 @@ load_dotenv("/Users/vishnumallela/Documents/Learning/LangChain/py.env")
 llm = ChatOpenAI(model="gpt-4o-mini", api_key=os.getenv("OPENAI_API_KEY"))
 parser = StrOutputParser()
 
-# Linking model to a parser (chaining)
+
 chain = llm | parser
 
 langfuse = Langfuse(
@@ -20,9 +20,10 @@ langfuse = Langfuse(
     host=os.getenv("LANGFUSE_HOST")
 )
 
-@observe()  # Automatically log function as a trace to Langfuse
+@observe()  
 def main():
-    # Update trace attributes (e.g., name, session_id, user_id)
+    
+ 
     langfuse_context.update_current_trace(
         metadata={
             "groupId": "1234567890",
@@ -35,7 +36,7 @@ def main():
     # Get the Langchain handler for the current trace
     langfuse_handler = langfuse_context.get_current_langchain_handler()
  
-    # Your Langchain code here
+
  
     # Add Langfuse handler as callback (classic and LCEL)
     chain.invoke("Who is RajiniKanth", config={"callbacks": [langfuse_handler]})
